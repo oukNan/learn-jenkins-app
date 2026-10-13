@@ -34,12 +34,6 @@ pipeline {
                     npm test
                 '''
             }
-            post {
-                always {
-                    junit testResults: 'test-results/**/*.xml', allowEmptyResults: true
-                    archiveArtifacts artifacts: 'test-results/**', allowEmptyArchive: true
-                }
-            }
         }
     }
     post {
