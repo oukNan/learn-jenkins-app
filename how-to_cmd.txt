@@ -1,0 +1,3 @@
+
+#run npm command using this format
+& "C:\Program Files\nodejs\npm.cmd" install -g serve
