@@ -20,14 +20,11 @@ pipeline {
                 '''
             }
         }
-        stage('Test') {
+        stage('E2E') {
             agent {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
-                    /*
-                    this is the test section to build the image.
-                    */
                 }
             }
             steps {
