@@ -28,7 +28,7 @@ pipeline {
                     sh '''
                         echo "initiating node:18!!!"
                     '''
-                    image 'node:18-alpine'
+                    //image 'node:18-alpine'
                     reuseNode true
                     args '-u 0:0'
                 }
