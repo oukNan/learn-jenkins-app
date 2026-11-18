@@ -50,10 +50,11 @@ pipeline {
                 '''
             }
         }
-        stage('Clone Repositories') {
+        stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/oukNan/weather_app.git',
-                    branch: 'master'
+                git branch: 'main',
+                credentialsId: 'github-credentials',
+                url: 'https://github.com/oukNan/weather_app.git'
             }
         }
     }
