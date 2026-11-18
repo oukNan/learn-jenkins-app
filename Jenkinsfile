@@ -25,6 +25,9 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
+                    sh '''
+                        echo "initiating node:18!!!"
+                    '''
                     image 'node:18-alpine'
                     reuseNode true
                     args '-u 0:0'
