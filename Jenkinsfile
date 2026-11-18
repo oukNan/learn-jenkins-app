@@ -23,15 +23,19 @@ pipeline {
         }
         */
         stage('Test') {
-            steps{
-                 sh'''
-                        echo "initializing node 18!!"
-                 '''
+            agent {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
                     args '-u 0:0'
                 }
+            }
+            steps{
+                
+                 sh'''
+                        echo "initializing node 18!!"
+                 '''
+
             }
             steps {
                 sh '''
