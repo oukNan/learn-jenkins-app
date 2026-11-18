@@ -52,7 +52,7 @@ pipeline {
         }
         stage('Clone Repository') {
             steps {
-                git branch: 'main',
+                git branch: 'master',
                 credentialsId: 'github-credentials',
                 url: 'https://github.com/oukNan/weather_app.git'
             }
