@@ -22,23 +22,6 @@ pipeline {
             }
         }
         */
-        stage('Test') {
-            steps{
-                 sh'''
-                        echo "initializing node 18!!"
-                 '''
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                    args '-u 0:0'
-                }
-            }
-            steps {
-                sh '''
-                    echo "hey"
-                '''
-            }
-        }
         stage('E2E') {
             agent {
                 docker {
