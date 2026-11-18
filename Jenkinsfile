@@ -31,16 +31,9 @@ pipeline {
                 }
             }
             steps{
-                
                  sh'''
                         echo "initializing node 18!!"
                  '''
-
-            }
-            steps {
-                sh '''
-                    echo "hey"
-                '''
             }
         }
         stage('E2E') {
