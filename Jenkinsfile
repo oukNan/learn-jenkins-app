@@ -23,12 +23,12 @@ pipeline {
         }
         */
         stage('Test') {
-            agent {
+            
                 steps{
                     sh '''
                         echo "initializing node 18!!"
                     '''
-                }
+                
                 docker {
 
                     image 'node:18-alpine'
