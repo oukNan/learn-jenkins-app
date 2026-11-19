@@ -1,7 +1,17 @@
+
 pipeline {
     agent any
 
     stages {
+
+        stage('Clone Repository') {
+            steps {
+                git branch: 'master',
+                    credentialsId: 'github-credentials',
+                    url: 'https://github.com/oukNan/weather_app.git'
+            }
+        }
+
         /*
         stage('Build') {
             agent {
@@ -22,6 +32,7 @@ pipeline {
             }
         }
         */
+
         stage('Test') {
             agent {
                 docker {
@@ -30,12 +41,16 @@ pipeline {
                     args '-u 0:0'
                 }
             }
-            steps{
-                 sh'''
-                        echo "initializing node 18!!"
-                 '''
+            steps {
+                sh '''
+                    echo "Initializing Node 18!"
+                    echo "Weather App source code is ready."
+                    ls -la
+                '''
             }
         }
+
+        /*
         stage('E2E') {
             agent {
                 docker {
@@ -50,17 +65,34 @@ pipeline {
                 '''
             }
         }
-        stage('Clone Repository') {
+        */
+
+        stage('Build Docker Image') {
             steps {
-                git branch: 'master',
-                credentialsId: 'github-credentials',
-                url: 'https://github.com/oukNan/weather_app.git'
+                sh '''
+                    docker build -t weather-app:${BUILD_NUMBER} .
+                '''
+            }
+        }
+
+        stage('Deploy Weather App') {
+            steps {
+                sh '''
+                    docker rm -f weather-app || true
+
+                    docker run -d \
+                        --name weather-app \
+                        -p 3000:80 \
+                        weather-app:${BUILD_NUMBER}
+                '''
             }
         }
     }
+
     post {
         always {
-            junit 'test-results/junit.xml'
+            junit allowEmptyResults: true,
+                  testResults: 'test-results/junit.xml'
         }
     }
 }
