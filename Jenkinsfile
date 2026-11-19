@@ -75,6 +75,17 @@ pipeline {
             }
         }
 
+        
+        stage('Inspect Docker Image') {
+            steps {
+                sh '''
+                    docker run --rm weather-app:${BUILD_NUMBER} \
+                    ls -la /usr/share/nginx/html/
+                '''
+            }
+        }
+
+
         stage('Deploy Weather App') {
             steps {
                 sh '''
